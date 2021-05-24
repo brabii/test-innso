@@ -6,4 +6,6 @@ public interface MessageService {
 
 	MessageDto getMessageById(long messageId);
 
+	MessageDto save(MessageDto messageDto);
+
 }
