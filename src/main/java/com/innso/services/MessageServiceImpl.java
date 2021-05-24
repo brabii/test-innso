@@ -27,5 +27,7 @@ public class MessageServiceImpl implements MessageService {
 								.clientFolder(null)
 								.build();
 	}
-
+	public List<MessageDto> getMessages() {
+		return messages;
+	}
 }
