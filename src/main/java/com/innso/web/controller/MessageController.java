@@ -1,5 +1,7 @@
 package com.innso.web.controller;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +22,11 @@ public class MessageController {
 
 	public MessageController(MessageService messageService) {
 		this.messageService = messageService;
+	}
+
+	@GetMapping("/")
+	public ResponseEntity<List<MessageDto>> allMessages() {
+		return new ResponseEntity<List<MessageDto>>(messageService.getMessages(), HttpStatus.OK);
 	}
 
 	@PostMapping("/")

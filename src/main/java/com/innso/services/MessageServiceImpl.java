@@ -12,21 +12,20 @@ import com.innso.web.model.MessageDto;
 public class MessageServiceImpl implements MessageService {
 
 	private List<MessageDto> messages = new ArrayList<>();
+
 	@Override
 	public MessageDto save(MessageDto messageDto) {
 		messages.add(messageDto);
 		return messageDto;
 	}
+
 	@Override
 	public MessageDto getMessageById(long messageId) {
-		return MessageDtoBuilder.aMessageDto()
-								.id(messageId)
-								.date(null).author("Jérémie Durand")
-								.message("Bonjour j'ai un probléme avec mon nouveau téléphone")
-								.canal(null)
-								.clientFolder(null)
-								.build();
+		return MessageDtoBuilder.aMessageDto().id(messageId).date(null).author("Jérémie Durand")
+				.message("Bonjour j'ai un probléme avec mon nouveau téléphone").canal(null).clientFolder(null).build();
 	}
+
+	@Override
 	public List<MessageDto> getMessages() {
 		return messages;
 	}

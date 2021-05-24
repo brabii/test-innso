@@ -39,4 +39,5 @@ public class MessageServiceTest {
 			messageService.validate(INVALID_MESSAGE);
 		});
 	}
+	
 }
