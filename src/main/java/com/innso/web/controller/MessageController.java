@@ -24,10 +24,6 @@ public class MessageController {
 		this.messageService = messageService;
 	}
 
-	@GetMapping("/")
-	public ResponseEntity<List<MessageDto>> allMessages() {
-		return new ResponseEntity<List<MessageDto>>(messageService.getMessages(), HttpStatus.OK);
-	}
 
 	@PostMapping("/")
 	public ResponseEntity<MessageDto> create(@RequestBody MessageDto messageDto) {
@@ -39,5 +35,10 @@ public class MessageController {
 	public ResponseEntity<MessageDto> getMessage(@PathVariable("messageId") long messageId) {
 		MessageDto messageDto = messageService.getMessageById(messageId);
 		return new ResponseEntity<MessageDto>(messageDto, HttpStatus.OK);
+	}
+
+	@GetMapping("/")
+	public ResponseEntity<List<MessageDto>> allMessages() {
+		return new ResponseEntity<List<MessageDto>>(messageService.getMessages(), HttpStatus.OK);
 	}
 }

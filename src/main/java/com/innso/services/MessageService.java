@@ -2,13 +2,14 @@ package com.innso.services;
 
 import java.util.List;
 
+import com.innso.exceptions.InvalidMessageException;
 import com.innso.web.model.MessageDto;
 
 public interface MessageService {
 
-	MessageDto getMessageById(long messageId);
+	MessageDto save(MessageDto messageDto) throws InvalidMessageException;
 
-	MessageDto save(MessageDto messageDto);
+	MessageDto getMessageById(long messageId);
 
 	List<MessageDto> getMessages();
 

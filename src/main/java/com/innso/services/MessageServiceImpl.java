@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.innso.exceptions.InvalidMessageException;
 import com.innso.web.builder.MessageDtoBuilder;
 import com.innso.web.model.MessageDto;
 
@@ -15,6 +16,9 @@ public class MessageServiceImpl implements MessageService {
 
 	@Override
 	public MessageDto save(MessageDto messageDto) {
+		if (messageDto == null) {
+			throw new InvalidMessageException();
+		}
 		messages.add(messageDto);
 		return messageDto;
 	}
