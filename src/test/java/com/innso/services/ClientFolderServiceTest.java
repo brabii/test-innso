@@ -1,5 +1,6 @@
 package com.innso.services;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -23,6 +24,11 @@ public class ClientFolderServiceTest {
 	private static final ClientFolderDto CLIENT_FOLDER_TO_SAVE = ClientFolderDtoBuilder.aClientFloderDto().id(1L)
 			.name("Jérémie Durand").reference("KA-XXX").messages(new ArrayList<>()).build();
 	private ClientFolderServiceImpl clientFolderService = new TestableClientFolderService();
+
+	@Test
+	public void shouldGetAllClientFolder() {
+		assertNotNull(clientFolderService.getClientFolders());
+	}
 
 	@ParameterizedTest
 	@ValueSource(longs = { 150L })
