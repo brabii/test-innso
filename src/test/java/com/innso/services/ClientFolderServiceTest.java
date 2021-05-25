@@ -11,6 +11,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.innso.exceptions.ClientFolderNotFoundException;
 import com.innso.exceptions.InvalidClientFolderException;
 import com.innso.web.builder.ClientFolderDtoBuilder;
 import com.innso.web.model.ClientFolderDto;
@@ -23,13 +24,16 @@ public class ClientFolderServiceTest {
 			.name("Jérémie Durand").reference("KA-XXX").messages(new ArrayList<>()).build();
 	private ClientFolderServiceImpl clientFolderService = new TestableClientFolderService();
 
-	@Test
-	public void shouldThrowExceptionWhenClientNotExists() {
-		// TODO
+	@ParameterizedTest
+	@ValueSource(longs = { 150L })
+	public void shouldThrowExceptionWhenClientFolderNotExists(long clientFolderId) {
+		assertThrows(ClientFolderNotFoundException.class, () -> {
+			clientFolderService.getClientFolderById(clientFolderId);
+		});
 	}
 
 	@ParameterizedTest
-	@ValueSource(longs = { 1, 100L, 188L })
+	@ValueSource(longs = { 1L })
 	public void shouldGetClientFolder(long clientFolderId) throws Exception {
 		ClientFolderDto clientFolderDto = clientFolderService.getClientFolderById(clientFolderId);
 		assertTrue(clientFolderDto != null);
@@ -51,16 +55,19 @@ public class ClientFolderServiceTest {
 
 class TestableClientFolderService extends ClientFolderServiceImpl {
 
-	private List<ClientFolderDto> clientFolders = super.getClientFolders();
+	private List<ClientFolderDto> clientFolders = initialise();
 	private static final String CLIENT_NAME = "Jérémie Durand";
 	private static final String REFERENCE = "KA-XXX";
 	private static final List<MessageDto> CLIENT_MESSAGES = new ArrayList<>();
 
 	@Override
 	public ClientFolderDto getClientFolderById(long clientFolderId) {
-		ClientFolderDto clientFolderDto = ClientFolderDtoBuilder.aClientFloderDto().id(clientFolderId).name(CLIENT_NAME)
-				.reference(REFERENCE).messages(CLIENT_MESSAGES).build();
-		return clientFolderDto;
+		for (ClientFolderDto clientFolderDto : clientFolders) {
+			if (clientFolderDto.getClientFolderId() == clientFolderId) {
+				return clientFolderDto;
+			}
+		}
+		throw new ClientFolderNotFoundException();
 	}
 
 	@Override
@@ -74,6 +81,13 @@ class TestableClientFolderService extends ClientFolderServiceImpl {
 		if (clientFolderToSave == null) {
 			throw new InvalidClientFolderException();
 		}
+	}
+
+	private List<ClientFolderDto> initialise() {
+		clientFolders = new ArrayList<>();
+		clientFolders.add(ClientFolderDtoBuilder.aClientFloderDto().id(1L).name(CLIENT_NAME).reference(REFERENCE)
+				.messages(CLIENT_MESSAGES).build());
+		return clientFolders;
 	}
 
 }
