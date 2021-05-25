@@ -5,7 +5,7 @@ import java.util.Date;
 public class MessageDto {
 
 	private long messageId;
-	private Date messageDate;
+	private Date messageDate = new Date();
 	private String messageAuthor;
 	private String messageContent;
 	private Canal canal;

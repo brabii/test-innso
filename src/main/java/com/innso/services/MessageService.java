@@ -9,8 +9,6 @@ public interface MessageService {
 
 	MessageDto save(MessageDto messageDto) throws InvalidMessageException;
 
-	MessageDto getMessageById(long messageId);
-
 	List<MessageDto> getMessages();
 
 }

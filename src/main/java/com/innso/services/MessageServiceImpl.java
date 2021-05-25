@@ -3,15 +3,17 @@ package com.innso.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.innso.exceptions.InvalidMessageException;
-import com.innso.web.builder.MessageDtoBuilder;
 import com.innso.web.model.MessageDto;
 
 @Service
 public class MessageServiceImpl implements MessageService {
 
+	Logger logger = LoggerFactory.getLogger(MessageServiceImpl.class);
 	private List<MessageDto> messages = new ArrayList<>();
 
 	@Override
@@ -19,14 +21,9 @@ public class MessageServiceImpl implements MessageService {
 		if (messageDto == null) {
 			throw new InvalidMessageException();
 		}
+		logger.info("{} saved .", messageDto);
 		messages.add(messageDto);
 		return messageDto;
-	}
-
-	@Override
-	public MessageDto getMessageById(long messageId) {
-		return MessageDtoBuilder.aMessageDto().id(messageId).date(null).author("Jérémie Durand")
-				.message("Bonjour j'ai un probléme avec mon nouveau téléphone").canal(null).clientFolder(null).build();
 	}
 
 	@Override
