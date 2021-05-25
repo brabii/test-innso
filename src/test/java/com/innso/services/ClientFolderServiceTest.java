@@ -19,6 +19,8 @@ import com.innso.web.model.MessageDto;
 @SpringBootTest
 public class ClientFolderServiceTest {
 	private static final ClientFolderDto INVALID_CLIENT_FOLDER = null;
+	private static final ClientFolderDto CLIENT_FOLDER_TO_SAVE = ClientFolderDtoBuilder.aClientFloderDto().id(1L)
+			.name("Jérémie Durand").reference("KA-XXX").messages(new ArrayList<>()).build();
 	private ClientFolderServiceImpl clientFolderService = new TestableClientFolderService();
 
 	@Test
@@ -38,6 +40,12 @@ public class ClientFolderServiceTest {
 		assertThrows(InvalidClientFolderException.class, () -> {
 			clientFolderService.save(INVALID_CLIENT_FOLDER);
 		});
+	}
+
+	@Test
+	public void shouldSaveClientFolder() throws InvalidClientFolderException {
+		ClientFolderDto clientFolderDto = clientFolderService.save(CLIENT_FOLDER_TO_SAVE);
+		assertTrue(clientFolderDto != null);
 	}
 }
 
