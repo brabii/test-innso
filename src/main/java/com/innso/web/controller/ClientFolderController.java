@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,17 +25,6 @@ public class ClientFolderController {
 		this.clientFolderService = clientFolderService;
 	}
 
-	@GetMapping("/")
-	public ResponseEntity<List<ClientFolderDto>> allClientFolder() {
-		return new ResponseEntity<List<ClientFolderDto>>(clientFolderService.getClientFolders(), HttpStatus.OK);
-	}
-
-	@GetMapping({ "/{clientFolderId}" })
-	public ResponseEntity<ClientFolderDto> getClientFolder(@PathVariable("clientFolderId") long clientFolderId) {
-		ClientFolderDto clientFolderDto = clientFolderService.getClientFolderById(clientFolderId);
-		return new ResponseEntity<ClientFolderDto>(clientFolderDto, HttpStatus.OK);
-	}
-
 	@PostMapping("/")
 	public ResponseEntity<ClientFolderDto> create(@RequestBody ClientFolderDto clientFolderDto) {
 		ClientFolderDto cliDto = null;
@@ -44,7 +33,17 @@ public class ClientFolderController {
 		} catch (InvalidClientFolderException e) {
 			e.printStackTrace();
 		}
-		return new ResponseEntity<ClientFolderDto>(cliDto, HttpStatus.OK);
+		return new ResponseEntity<ClientFolderDto>(cliDto, HttpStatus.CREATED);
 	}
 
+	@GetMapping("/")
+	public ResponseEntity<List<ClientFolderDto>> allClientFolder() {
+		return new ResponseEntity<List<ClientFolderDto>>(clientFolderService.getClientFolders(), HttpStatus.OK);
+	}
+
+	@PutMapping("/update")
+	public ResponseEntity<ClientFolderDto> update(@RequestBody ClientFolderDto clientFolderDto) {
+		clientFolderDto.setReference("KA-18B6");
+		return new ResponseEntity<ClientFolderDto>(clientFolderDto, HttpStatus.OK);
+	}
 }

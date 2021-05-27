@@ -21,7 +21,7 @@ public class MessageServiceImpl implements MessageService {
 		if (messageDto == null) {
 			throw new InvalidMessageException();
 		}
-		logger.info("{} saved .", messageDto);
+		logger.info("{} saved .", messageDto.getMessageAuthor());
 		messages.add(messageDto);
 		return messageDto;
 	}

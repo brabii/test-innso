@@ -14,13 +14,12 @@ public class ClientFolderServiceImpl implements ClientFolderService {
 	private List<ClientFolderDto> clientFolders = new ArrayList<>();
 
 	@Override
-	public ClientFolderDto getClientFolderById(long clientFolderId) {
-		return null;
-	}
-
-	@Override
-	public ClientFolderDto save(ClientFolderDto clientFolderDto)  throws InvalidClientFolderException{
-		return null;
+	public ClientFolderDto save(ClientFolderDto clientFolderDto) throws InvalidClientFolderException {
+		if (clientFolderDto == null) {
+			throw new InvalidClientFolderException();
+		}
+		clientFolderDto.equals(clientFolderDto);
+		return clientFolderDto;
 	}
 
 	@Override

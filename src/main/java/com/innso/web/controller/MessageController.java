@@ -26,14 +26,4 @@ public class MessageController {
 		return new ResponseEntity<MessageDto>(msgDto, HttpStatus.CREATED);
 	}
 
-	/*
-	 * @GetMapping({ "/{messageId}" }) public ResponseEntity<MessageDto>
-	 * getMessage(@PathVariable("messageId") long messageId) { MessageDto messageDto
-	 * = messageService.getMessageById(messageId); return new
-	 * ResponseEntity<MessageDto>(messageDto, HttpStatus.OK); }
-	 * 
-	 * @GetMapping("/") public ResponseEntity<List<MessageDto>> allMessages() {
-	 * return new ResponseEntity<List<MessageDto>>(messageService.getMessages(),
-	 * HttpStatus.OK); }
-	 */
 }
